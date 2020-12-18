@@ -8,3 +8,11 @@ from .serializers import UserSerializer
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
+
+
+# Index render
+def index(request):
+    context = {
+        'data': 'testttttttttt',
+    }
+    return render(request, 'myapi/index.html', context)
