@@ -20,7 +20,9 @@
       <div class="row">
         <!-- 1. Get and Save Users -->
         <div class="col-sm">
-          <a class="btn btn-primary btn-lg" onclick="get_data_from_url('https://jsonplaceholder.typicode.com/users');" role="button">Get and Save users</a>
+          <a class="btn btn-primary btn-lg"
+            onclick="get_and_save_users('https://jsonplaceholder.typicode.com/users', '/apis/users/');"
+            role="button">Get and Save users</a>
         </div>
         
         <!-- 2. Add a user -->
@@ -89,25 +91,32 @@
         try {
           let response = await axios.get(url);
           let data = response.data;
-          console.log(data);
+          return data;
         } catch (error) {
           console.error(error);
         }
       }
 
-      async function post_data_to_url(url) {
+      async function post_data_to_url(url, data) {
         try {
           let payload = {
-            "username": "test",
-            "email": "343434@aaa.com",
-            "catch_phrase": "3434"
+            "username": data.username,
+            "email": data.email,
+            "catch_phrase": data.company.catchPhrase
           };
-          let response = await axios.post(url, payload);
-          let data = response.data;
-          console.log(data);
+          console.log(payload);
+          // let response = await axios.post(url, payload);
+          // let data = response.data;
         } catch (error) {
           console.error(error);
         }
+      }
+
+      async function get_and_save_users(get_url, post_url) {
+        let all_users = await get_data_from_url(get_url);
+        all_users.forEach((user) => {
+          post_data_to_url(post_url, user);
+        });
       }
   </script>
   </body>
