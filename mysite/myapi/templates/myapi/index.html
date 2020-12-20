@@ -87,6 +87,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
     <!-- personal script -->
     <script>
+      axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+      axios.defaults.xsrfCookieName = 'csrftoken';
+
       async function get_data_from_url(url) {
         try {
           let response = await axios.get(url);
@@ -104,9 +107,7 @@
             "email": data.email,
             "catch_phrase": data.company.catchPhrase
           };
-          console.log(payload);
-          // let response = await axios.post(url, payload);
-          // let data = response.data;
+          await axios.post(url, payload);
         } catch (error) {
           console.error(error);
         }
@@ -114,9 +115,14 @@
 
       async function get_and_save_users(get_url, post_url) {
         let all_users = await get_data_from_url(get_url);
-        all_users.forEach((user) => {
-          post_data_to_url(post_url, user);
-        });
+        try {
+          all_users.forEach((user) => {
+            post_data_to_url(post_url, user);
+          });
+          alert("successful");
+        } catch (error) {
+          console.error(error);
+        }
       }
   </script>
   </body>
