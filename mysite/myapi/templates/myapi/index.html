@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <title>Hello, world!</title>
+    <title>Django RESTfulAPI Test</title>
   </head>
   <body>
     <div class="container">
@@ -51,13 +51,12 @@
         <!-- 3. Display all users -->
         {% if data %}
         <div class="col-sm">
-            <a class="btn btn-info btn-lg" role="button" onclick="displayUser()">Display all users</a>
+            <a class="btn btn-info btn-lg" role="button" onclick="display_user()">Display all users</a>
         </div>
         {% endif %}
       </div>
 
       <!-- Result -->
-      {% if data %}
       <hr>
       <div id="result-section" class="d-none">
         <table class="table">
@@ -83,7 +82,6 @@
       </div>
 
     </div>
-    {% endif %}
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <!-- Jquery -->
@@ -124,7 +122,7 @@
           all_users.forEach((user) => {
             post_data_to_url(post_url, user);
           });
-          alert("successful");
+          alert("successful!!");
         } catch (error) {
           console.error(error);
         }
@@ -132,8 +130,12 @@
   </script>
   <!-- Utility script -->
   <script>
-    function displayUser() {
+    function display_user() {
       $("#result-section").toggleClass('d-none');
+    }
+
+    function reload_page(is_ready) {
+      window.location.reload(true);
     }
   </script>
   </body>
